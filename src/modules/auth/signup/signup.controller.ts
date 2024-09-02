@@ -7,11 +7,6 @@ export class SignupController {
 
     constructor(private _signupService: SignupService) { }
 
-    // @Get()
-    // getusers(){
-    //     return this._signupService.getusers()
-    // }
-
     @Post()
     signup(@Body() body:SignUpDTO ) {
         return this._signupService.signup(body)

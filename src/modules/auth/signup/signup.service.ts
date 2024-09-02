@@ -21,6 +21,13 @@ export class SignupService {
    if(user) throw new HttpException('email is already register', HttpStatus.FORBIDDEN);
 
 body.password = await bcrypt.hash(body.password, 8);
+
+if (!body.role) {
+    body.role = 'user';  // إذا لم يتم تحديد نوع المستخدم، افتراضياً يكون "user"
+} else if (body.role !== 'user' && body.role !== 'admin'&&body.role !=='auther') {
+    throw new HttpException('Invalid role', HttpStatus.BAD_REQUEST); // إذا كان النوع غير صحيح
+}
+
    let adduser =await this.userModel.insertMany(body)
         return {message:'added success',adduser}
     }
